@@ -3,7 +3,7 @@ A PHP library to handle cXML punchout orders
 
 ## Install
 
-`composer require herbert/cxml:dev-main`
+`composer require condero/cxml:dev-main`
 
 ## Usage (punchout workflow)
 
