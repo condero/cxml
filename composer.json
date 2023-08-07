@@ -1,5 +1,5 @@
 {
-    "name": "herbert/cxml",
+    "name": "condero/cxml",
     "description": "A PHP library to handle cXML punchout orders",
     "type": "library",
     "authors": [
