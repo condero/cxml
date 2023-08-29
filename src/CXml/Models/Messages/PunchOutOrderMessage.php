@@ -13,6 +13,9 @@ class PunchOutOrderMessage implements MessageInterface
     /** @var ItemIn[] */
     private $items = [];
 
+    /** @var array[] */
+    private $extrinsics = [];
+    
     /** @var string */
     private $currency = 'USD';
 
@@ -58,6 +61,12 @@ class PunchOutOrderMessage implements MessageInterface
         return $this;
     }
 
+    public function addExtrinsic(string $key, string $value) : self
+    {
+        $this->extrinsics[$key] = $value;
+        return $this;
+    }
+    
     public function getCurrency(): string
     {
         return $this->currency;
@@ -91,6 +100,11 @@ class PunchOutOrderMessage implements MessageInterface
 
         foreach ($this->items as $item) {
             $item->render($node, $this->currency, $this->locale);
+        }
+        
+        foreach ($this->extrinsics as $key => $extrinsic) {
+            $extrinsicElement = $node->addChild('Extrinsic', $extrinsic);
+            $extrinsicElement->addAttribute('name', $key);
         }
     }
 }
