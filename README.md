@@ -97,5 +97,8 @@ Create a form containing the following XML:
         $message->addItem($item);
     }
 
+    // Extrinsic (optional)
+    $message->addExtrinsic("subscriptionname", "example_ABCD");
+
     // Render
     return $cXml->render();
