@@ -39,6 +39,9 @@ class ItemIn
     /** @var int|null */
     private $leadTime;
 
+    /** @var array[]|null */
+    private $extrinsics = [];
+
     public function getQuantity(): int
     {
         return $this->quantity;
@@ -79,7 +82,7 @@ class ItemIn
         $this->supplierPartAuxiliaryID = $supplierPartAuxiliaryID;
         return $this;
     }
-    
+
     public function getUnitPrice(): float
     {
         return $this->unitPrice;
@@ -157,6 +160,12 @@ class ItemIn
         return $this;
     }
 
+    public function addExtrinsic(string $key, string $value) : self
+    {
+    	$this->extrinsics[$key] = $value;
+    	return $this;
+    }
+
     public function render(\SimpleXMLElement $parentNode, string $currency, string $locale): void
     {
         $node = $parentNode->addChild('ItemIn');
@@ -196,6 +205,12 @@ class ItemIn
         if ($this->leadTime !== null) {
             $itemDetailsNode->addChild('LeadTime', $this->leadTime);
         }
+
+        // Extrinsic
+    	foreach ($this->extrinsics as $key => $extrinsic) {
+    	    $extrinsicElement = $itemDetailsNode->addChild('Extrinsic', $extrinsic);
+                $extrinsicElement->addAttribute('name', $key);
+    	}
     }
 
     private function formatPrice(float $price)
